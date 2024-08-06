@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Musical</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Tienda Musical</h1>
+        <div id="cart">
+            <h2>Carrito de Compras</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="total-price">0.00</span></p>
+            <button id="empty-cart-button">Vaciar Carrito</button>
+            <button id="checkout-button">Ir a Pagar</button>
+        </div>
+    </header>
+    <main>
+        <h2>Productos</h2>
+        <div id="producto-list">
+            <div class="producto-item" data-id="1" data-nombre="Piano" data-precio="400.00">
+                <h3>Piano</h3>
+                <p>Precio: $400.00</p>
+                <img src="./img/piano.jpg" alt="Piano">
+                <button class="botonAgregar" type="button">Agregar Producto al carrito</button>
+            </div>
+            <div class="producto-item" data-id="2" data-nombre="Guitarra acústica" data-precio="120.00">
+                <h3>Guitarra acústica</h3>
+                <p>Precio: $120.00</p>
+                <img src="./img/guitarra.jpg" alt="Guitarra acústica">
+                <button class="botonAgregar" type="button">Agregar Producto al carrito</button>
+            </div>
+            <div class="producto-item" data-id="3" data-nombre="Violín" data-precio="150.00">
+                <h3>Violín</h3>
+                <p>Precio: $150.00</p>
+                <img src="./img/violin.jpg" alt="Violín">
+                <button class="botonAgregar" type="button">Agregar Producto al carrito</button>
+            </div>
+            <div class="producto-item" data-id="4" data-nombre="Batería" data-precio="350.00">
+                <h3>Batería</h3>
+                <p>Precio: $350.00</p>
+                <img src="./img/bateria.jpg" alt="Batería">
+                <button class="botonAgregar" type="button">Agregar Producto al carrito</button>
+            </div>
+        </div>
+    </main>
+    <script src="./main.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: gray;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+}
+
+#cart {
+    margin-top: 20px;
+}
+
+#cart h2 {
+    margin: 0;
+}
+
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-items li {
+    margin-bottom: 10px;
+}
+
+#cart button {
+    background-color: #4CAF50; /* Botón verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#cart button:hover {
+    background-color: #45a049; /* Verde oscuro al pasar el ratón */
+}
+
+main {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.producto-list {
+    display: flex;
+    flex-wrap: nowrap; /* Evita el ajuste a la siguiente línea */
+    overflow-x: auto; /* Permite el desplazamiento horizontal si es necesario */
+    gap: 20px; /* Espacio entre los productos */
+    padding: 10px 0; /* Espacio superior e inferior para el contenedor de productos */
+}
+
+.botonAgregar {
+    background-color: rgba(0, 153, 255, 0.466);
+}
+
+.producto-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Ancho fijo para los productos */
+    flex: 0 0 auto; /* Evita que los productos se estiren o reduzcan */
+}
+
+.producto-item img {
+    max-width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.producto-item h3 {
+    margin: 10px 0;
+}
+
+.producto-item p {
+    margin: 0;
+    font-size: 16px;
+}
+

@@ -1,17 +1,11 @@
-//Lista de productos
-
-const productos = [
-    { id: 1, nombre: "Piano", precio: 400.00 },
-    { id: 2, nombre: "Guitarra acústica", precio: 120.00 },
-    { id: 3, nombre: "Violín", precio: 150.00 },
-    { id: 4, nombre: "Batería", precio: 350.00 }
-];
-
-let cart = [];
+// Recuperar carrito desde Local Storage o inicializarlo vacío
+let cart = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // Función para mostrar productos en el DOM
-function mostrarProductos() {
+function mostrarProductos(productos) {
     const listaDeProductos = document.getElementById('producto-list');
+    listaDeProductos.innerHTML = ''; // Limpiar lista antes de agregar productos
+
     productos.forEach(producto => {
         const productoDiv = document.createElement('div');
         productoDiv.classList.add('producto-item');
@@ -28,18 +22,38 @@ function mostrarProductos() {
 
         listaDeProductos.appendChild(productoDiv);
     });
+
+    // Agregar eventos para los botones "Agregar Producto al carrito"
+    document.querySelectorAll('.producto-item button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productoItem = button.parentElement;
+            const productoId = parseInt(productoItem.dataset.id);
+            addToCart(productoId);
+        });
+    });
 }
 
 // Función para agregar un producto al carrito
 function addToCart(productoId) {
-    const producto = productos.find(p => p.id === productoId);
-    if (producto) {
-        cart.push(producto);
-        updateCart();
-    }
+    fetch('instrumentos.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la red: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const productos = data.instrumentos;
+            const producto = productos.find(p => p.id === productoId);
+            if (producto) {
+                cart.push(producto);
+                updateCart();
+            }
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
 }
 
-// Función para actualizar el carrito en el DOM
+// Función para actualizar el carrito en el DOM y en Local Storage
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
@@ -53,6 +67,9 @@ function updateCart() {
     });
 
     document.getElementById('total-price').textContent = total.toFixed(2);
+
+    // Guardar el carrito actualizado en Local Storage
+    localStorage.setItem('carrito', JSON.stringify(cart));
 }
 
 // Función para vaciar el carrito
@@ -68,22 +85,26 @@ function checkout() {
         return;
     }
 
-    // despues creare otro html que sea el del pago
-    alert("Procediendo al pago...");
-
+    // Redirigir a la página de pago
+    window.location.href = 'checkout.html';
 }
 
 // Eventos del DOM
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarProductos();
+    // Cargar productos desde el archivo JSON
+    fetch('instrumentos.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la red: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            mostrarProductos(data.instrumentos);
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
 
-    document.querySelectorAll('.producto-item button').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const productoItem = button.parentElement;
-            const productoId = parseInt(productoItem.dataset.id);
-            addToCart(productoId);
-        });
-    });
+    updateCart();  // Actualizar la vista del carrito al cargar la página
 
     document.getElementById('empty-cart-button').addEventListener('click', emptyCart);
     document.getElementById('checkout-button').addEventListener('click', checkout);

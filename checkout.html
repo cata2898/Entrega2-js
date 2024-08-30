@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Ir a Pagar</title>
+    <link rel="stylesheet" href="./style.css"> 
+</head>
+<body>
+    <header>
+        <h1>Proceso de Pago</h1>
+    </header>
+
+    <main>
+        <section id="cart-summary">
+            <h2>Resumen del Carrito</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="total-price">0.00</span></p>
+        </section>
+
+        <section id="payment-info">
+            <h2>Información de Pago</h2>
+            <form id="payment-form">
+                <div>
+                    <label for="name">Nombre Completo:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="card-number">Número de Tarjeta:</label>
+                    <input type="text" id="card-number" name="card-number" required>
+                </div>
+                <div>
+                    <label for="expiration">Fecha de Expiración:</label>
+                    <input type="month" id="expiration" name="expiration" required>
+                </div>
+                <div>
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                </div>
+                <button type="submit">Confirmar Pago</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="checkout.js"></script> <!-- Archivo JavaScript para manejar la lógica de pago -->
+</body>
+</html>

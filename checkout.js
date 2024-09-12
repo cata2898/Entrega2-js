@@ -1,55 +1,44 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Recuperar el carrito desde Local Storage
-    const cart = JSON.parse(localStorage.getItem('carrito')) || [];
-    const cartItems = document.getElementById('cart-items');
-    let total = 0;
+// Recuperar el carrito desde localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Mostrar los productos del carrito en la página de pago
-    cart.forEach(item => {
+// Función para mostrar los productos del carrito en la página de pago
+function showCartOnCheckout() {
+    const cartItems = document.getElementById('checkout-cart-items');
+    const totalPriceElement = document.getElementById('checkout-total-price');
+    
+    // Limpiar el contenido actual
+    cartItems.innerHTML = '';
+
+    let totalPrice = 0;
+
+    // Mostrar los productos del carrito
+    cart.forEach(product => {
         const li = document.createElement('li');
-        li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+        li.textContent = `${product.nombre} - $${product.precio}`;
         cartItems.appendChild(li);
-        total += item.precio;
+
+        totalPrice += parseFloat(product.precio);
     });
 
-    // Mostrar el total
-    document.getElementById('total-price').textContent = total.toFixed(2);
+    // Actualizar el precio total
+    totalPriceElement.textContent = totalPrice.toFixed(2);
+}
 
-    // Manejar el envío del formulario de pago
-    const paymentForm = document.getElementById('payment-form');
-    paymentForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+// Función para confirmar el pago
+function confirmPayment() {
+    alert("Gracias por su compra");
 
-        // Validar los campos del formulario
-        const name = document.getElementById('name').value.trim();
-        const cardNumber = document.getElementById('card-number').value.trim();
-        const expiration = document.getElementById('expiration').value.trim();
-        const cvv = document.getElementById('cvv').value.trim();
+    // Vaciar el carrito en localStorage
+    localStorage.removeItem('cart');
 
-        if (!name || !cardNumber || !expiration || !cvv) {
-            alert('Por favor, completa todos los campos del formulario.');
-            return;
-        }
+    // Redirigir a la página principal después de hacer clic en "Aceptar"
+    window.location.href = "index.html";  // Cambia "index.html" por la página principal de tu sitio
+}
 
-        if (!/^\d{16}$/.test(cardNumber)) {
-            alert('Por favor, ingresa un número de tarjeta válido de 16 dígitos.');
-            return;
-        }
+// Mostrar el carrito al cargar la página
+document.addEventListener('DOMContentLoaded', showCartOnCheckout);
 
-        if (!/^\d{3,4}$/.test(cvv)) {
-            alert('Por favor, ingresa un CVV válido de 3 o 4 dígitos.');
-            return;
-        }
-
-        // Simular el procesamiento del pago
-        alert('Pago confirmado. ¡Gracias por tu compra!');
-
-        // Limpiar el carrito después del pago
-        localStorage.removeItem('carrito');
-
-        // Redirigir a la página principal u otra página después del pago
-        window.location.href = 'index.html';
-    });
-});
+// Evento para el botón de "Confirmar Pago"
+document.getElementById('confirm-payment-button').addEventListener('click', confirmPayment);
 
 //Luego arreglare la parte del pago con css para que quede mas bonita pero no me da el tiempo
